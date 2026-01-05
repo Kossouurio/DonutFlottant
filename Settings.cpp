@@ -1,24 +1,41 @@
+#define _USE_MATH_DEFINES
 #include "Settings.h"
 #include <string>
+#include <cmath>
 
 Settings::Settings(int argc, char** argv)
+// Screen
 : m_screenWidth(100)
 , m_screenHeight(20)
 , m_screenBackground(' ')
 , m_screenMeshProjection('X')
-, m_screenPosition(40.f)
+, m_screenPosition(50.f)
+
+// Mesh
 , m_meshResolution(128)
-, m_meshPosition(15.f)
-, m_meshRotationXPerFrame(0.02f)
-, m_meshRotationYPerFrame(0.04f)
+, m_meshPosition(18.f)
+, m_meshRotationXPerFrame(0.03f)
+, m_meshRotationYPerFrame(0.05f)
 , m_meshRotationZPerFrame(0.0f)
+
+// Light
 , m_lightDirectionX(-1.f)
 , m_lightDirectionY(-1.f)
 , m_lightDirectionZ(-1.f)
-, m_frameDuration(0)
-, m_animationAmplitude(3.0f)
-, m_animationSpeed(1.0f)
-, m_animationDeltaTime(0.1f)
+
+// Animation
+, m_frameDuration(16000)
+, m_animationAmplitude(6.0f)
+, m_animationSpeed(0.8f)
+
+// Initial rotations
+, m_initialRotationX(static_cast<float>(M_PI / 4.0))
+, m_initialRotationY(static_cast<float>(M_PI / 4.0))
+, m_initialRotationZ(0.f)
+
+// Torus geometry
+, m_torusMajorRadius(4.f)
+, m_torusMinorRadius(2.5f)
 {
     _ParseArguments(argc, argv);
 }
@@ -109,9 +126,29 @@ void Settings::_ParseArguments(int argc, char** argv)
             m_animationSpeed = std::atof(argv[i+1]);
             i++;
         }
-        else if (arg == "-ad" && i + 1 < argc)
+        else if (arg == "-ix" && i + 1 < argc)
         {
-            m_animationDeltaTime = std::atof(argv[i+1]);
+            m_initialRotationX = std::atof(argv[i+1]);
+            i++;
+        }
+        else if (arg == "-iy" && i + 1 < argc)
+        {
+            m_initialRotationY = std::atof(argv[i+1]);
+            i++;
+        }
+        else if (arg == "-iz" && i + 1 < argc)
+        {
+            m_initialRotationZ = std::atof(argv[i+1]);
+            i++;
+        }
+        else if (arg == "-tM" && i + 1 < argc)
+        {
+            m_torusMajorRadius = std::atof(argv[i+1]);
+            i++;
+        }
+        else if (arg == "-tm" && i + 1 < argc)
+        {
+            m_torusMinorRadius = std::atof(argv[i+1]);
             i++;
         }
     }

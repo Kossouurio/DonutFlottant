@@ -12,7 +12,7 @@ endif()
 project ("DonutFlottant")
 
 # Ajoutez une source à l'exécutable de ce projet.
-add_executable (DonutFlottant "main.cpp" "Light.cpp" "Light.h" "Mesh.cpp" "Mesh.h" "Screen.cpp" "Screen.h" "Settings.cpp" "Settings.h" "Animation.cpp" "Animation.h")
+add_executable (DonutFlottant "main.cpp" "Light.cpp" "Light.h" "Mesh.cpp" "Mesh.h" "Screen.cpp" "Screen.h" "Settings.cpp" "Settings.h" "Animation.cpp" "Animation.h" "Vector3.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET DonutFlottant PROPERTY CXX_STANDARD 20)

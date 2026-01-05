@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include "Animation.h"
 #include "Mesh.h"
 #include "Settings.h"
@@ -7,25 +8,33 @@ Animation::Animation(Mesh& mesh, Settings const& settings)
     : m_mesh(mesh)
     , m_amplitude(settings.GetAnimationAmplitude())
     , m_speed(settings.GetAnimationSpeed())
-    , m_deltaTime(settings.GetAnimationDeltaTime())
-    , m_time(0.f)
-    , m_previousOffset(0.f)
+    , m_basePosition(Vector3::Zero())
+    , m_currentOffset(0.f)
+    , m_lastUpdateTime(std::chrono::high_resolution_clock::now())
+    , m_lastDeltaTime(0.f)
 {
 }
 
 void Animation::Update()
 {
-    m_time += m_deltaTime;
-    float currentOffset = m_amplitude * std::cos(m_time * m_speed);
-    float delta = currentOffset - m_previousOffset;
-    m_previousOffset = currentOffset;
-    
+    auto now = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<float> elapsed = now - m_lastUpdateTime;
+    m_lastDeltaTime = elapsed.count();
+    m_lastUpdateTime = now;
+
+    static float totalTime = 0.f;
+    totalTime += m_lastDeltaTime;
+
+    float newOffset = m_amplitude * std::cos(totalTime * m_speed);
+    float delta = newOffset - m_currentOffset;
+    m_currentOffset = newOffset;
+
     m_mesh.Translate(0.f, delta, 0.f);
 }
 
 float Animation::GetCurrentOffset() const
 {
-    return m_previousOffset;
+    return m_currentOffset;
 }
 
 void Animation::SetAmplitude(float amplitude)
@@ -36,11 +45,6 @@ void Animation::SetAmplitude(float amplitude)
 void Animation::SetSpeed(float speed)
 {
     m_speed = speed;
-}
-
-void Animation::SetDeltaTime(float deltaTime)
-{
-    m_deltaTime = deltaTime;
 }
 
 float Animation::GetAmplitude() const
@@ -55,5 +59,5 @@ float Animation::GetSpeed() const
 
 float Animation::GetDeltaTime() const
 {
-    return m_deltaTime;
+    return m_lastDeltaTime;
 }

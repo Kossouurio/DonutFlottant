@@ -20,7 +20,11 @@ class Settings
     int GetFrameDuration() const { return m_frameDuration; }
     float GetAnimationAmplitude() const { return m_animationAmplitude; }
     float GetAnimationSpeed() const { return m_animationSpeed; }
-    float GetAnimationDeltaTime() const { return m_animationDeltaTime; }
+    float GetInitialRotationX() const { return m_initialRotationX; }
+    float GetInitialRotationY() const { return m_initialRotationY; }
+    float GetInitialRotationZ() const { return m_initialRotationZ; }
+    float GetTorusMajorRadius() const { return m_torusMajorRadius; }
+    float GetTorusMinorRadius() const { return m_torusMinorRadius; }
 
     private:
     void _ParseArguments(int argc, char** argv);
@@ -42,5 +46,9 @@ class Settings
     int m_frameDuration;
     float m_animationAmplitude;
     float m_animationSpeed;
-    float m_animationDeltaTime;
+    float m_initialRotationX;
+    float m_initialRotationY;
+    float m_initialRotationZ;
+    float m_torusMajorRadius;
+    float m_torusMinorRadius;
 };
