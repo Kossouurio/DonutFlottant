@@ -76,7 +76,7 @@ int main(int argc, char** argv)
 
         floatAnimation.Update();
 
-        screen.Display(mesh, light);
+        screen.Display(mesh, light, floatAnimation.GetCurrentOffset(), floatAnimation.GetOrbitOffset());
 
         //usleep(settings.GetFrameDuration());
 		Sleep(settings.GetFrameDuration() / 1000);

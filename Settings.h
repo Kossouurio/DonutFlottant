@@ -20,6 +20,8 @@ class Settings
     int GetFrameDuration() const { return m_frameDuration; }
     float GetAnimationAmplitude() const { return m_animationAmplitude; }
     float GetAnimationSpeed() const { return m_animationSpeed; }
+    float GetOrbitAmplitude() const { return m_orbitAmplitude; }
+    float GetOrbitSpeed() const { return m_orbitSpeed; }
     float GetInitialRotationX() const { return m_initialRotationX; }
     float GetInitialRotationY() const { return m_initialRotationY; }
     float GetInitialRotationZ() const { return m_initialRotationZ; }
@@ -46,6 +48,8 @@ class Settings
     int m_frameDuration;
     float m_animationAmplitude;
     float m_animationSpeed;
+    float m_orbitAmplitude;
+    float m_orbitSpeed;
     float m_initialRotationX;
     float m_initialRotationY;
     float m_initialRotationZ;

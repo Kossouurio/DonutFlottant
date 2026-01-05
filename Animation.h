@@ -18,14 +18,18 @@ public:
     float GetAmplitude() const;
     float GetSpeed() const;
     float GetCurrentOffset() const;
+    float GetOrbitOffset() const;
     float GetDeltaTime() const;
 
 private:
     Mesh& m_mesh;
     float m_amplitude;
     float m_speed;
+    float m_orbitAmplitude;
+    float m_orbitSpeed;
     Vector3 m_basePosition;
     float m_currentOffset;
+    float m_orbitOffset;
     std::chrono::high_resolution_clock::time_point m_lastUpdateTime;
     float m_lastDeltaTime;
 };

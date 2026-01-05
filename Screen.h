@@ -11,11 +11,11 @@ class Screen
     public:
     Screen(Settings const& settings);
     void Display() const;
-    void Display(Mesh const& mesh, Light const& light);
+    void Display(Mesh const& mesh, Light const& light, float yOffset = 0.f, float zOffset = 0.f);
 
     private:
-    void _ProjectMesh(Mesh const& mesh, Light const& light);
-    void _ProjectInCenterScreenSpace(Vertex& vertex);
+    void _ProjectMesh(Mesh const& mesh, Light const& light, float yOffset, float zOffset);
+    void _ProjectInCenterScreenSpace(Vertex& vertex, float yOffset, float zOffset);
     void _ProjectInTopLeftScreenSpace(Vertex& vertex);
     bool _IsVertexInScreen(int u, int v);
 

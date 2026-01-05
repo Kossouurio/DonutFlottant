@@ -8,8 +8,11 @@ Animation::Animation(Mesh& mesh, Settings const& settings)
     : m_mesh(mesh)
     , m_amplitude(settings.GetAnimationAmplitude())
     , m_speed(settings.GetAnimationSpeed())
+    , m_orbitAmplitude(settings.GetOrbitAmplitude())
+    , m_orbitSpeed(settings.GetOrbitSpeed())
     , m_basePosition(Vector3::Zero())
     , m_currentOffset(0.f)
+    , m_orbitOffset(0.f)
     , m_lastUpdateTime(std::chrono::high_resolution_clock::now())
     , m_lastDeltaTime(0.f)
 {
@@ -25,16 +28,18 @@ void Animation::Update()
     static float totalTime = 0.f;
     totalTime += m_lastDeltaTime;
 
-    float newOffset = m_amplitude * std::cos(totalTime * m_speed);
-    float delta = newOffset - m_currentOffset;
-    m_currentOffset = newOffset;
-
-    m_mesh.Translate(0.f, delta, 0.f);
+    m_currentOffset = m_amplitude * std::cos(totalTime * m_speed);
+    m_orbitOffset = m_orbitAmplitude * std::sin(totalTime * m_orbitSpeed);
 }
 
 float Animation::GetCurrentOffset() const
 {
     return m_currentOffset;
+}
+
+float Animation::GetOrbitOffset() const
+{
+    return m_orbitOffset;
 }
 
 void Animation::SetAmplitude(float amplitude)

@@ -29,19 +29,19 @@ void Screen::Display() const
     }
 }
 
-void Screen::Display(Mesh const& mesh, Light const& light)
+void Screen::Display(Mesh const& mesh, Light const& light, float yOffset, float zOffset)
 {
     std::fill(m_pixels.begin(), m_pixels.end(), m_background);
-    _ProjectMesh(mesh, light);
+    _ProjectMesh(mesh, light, yOffset, zOffset);
     Display();
 }
 
-void Screen::_ProjectMesh(Mesh const& mesh, Light const& light)
+void Screen::_ProjectMesh(Mesh const& mesh, Light const& light, float yOffset, float zOffset)
 {
     std::fill(m_oozBuffer.begin(), m_oozBuffer.end(), 0.f);
     for(Vertex vertex : mesh.GetVertices())
     {
-        _ProjectInCenterScreenSpace(vertex);
+        _ProjectInCenterScreenSpace(vertex, yOffset, zOffset);
         _ProjectInTopLeftScreenSpace(vertex);
         int u = std::round(vertex.x);
         int v = std::round(vertex.y);
@@ -62,11 +62,11 @@ void Screen::_ProjectMesh(Mesh const& mesh, Light const& light)
     }
 }
 
-void Screen::_ProjectInCenterScreenSpace(Vertex& vertex)
+void Screen::_ProjectInCenterScreenSpace(Vertex& vertex, float yOffset, float zOffset)
 {
-    vertex.z += m_meshZPosition;
+    vertex.z += m_meshZPosition + zOffset;
     vertex.x = m_zPosition * vertex.x / vertex.z;
-    vertex.y = m_zPosition * vertex.y / vertex.z / 2.f;
+    vertex.y = m_zPosition * (vertex.y + yOffset) / vertex.z / 2.f;
 }
 
 void Screen::_ProjectInTopLeftScreenSpace(Vertex& vertex)

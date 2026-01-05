@@ -27,6 +27,8 @@ Settings::Settings(int argc, char** argv)
 , m_frameDuration(16000)
 , m_animationAmplitude(6.0f)
 , m_animationSpeed(0.8f)
+, m_orbitAmplitude(10.f)
+, m_orbitSpeed(0.5f)
 
 // Initial rotations
 , m_initialRotationX(static_cast<float>(M_PI / 4.0))
@@ -124,6 +126,16 @@ void Settings::_ParseArguments(int argc, char** argv)
         else if (arg == "-as" && i + 1 < argc)
         {
             m_animationSpeed = std::atof(argv[i+1]);
+            i++;
+        }
+        else if (arg == "-oa" && i + 1 < argc)
+        {
+            m_orbitAmplitude = std::atof(argv[i+1]);
+            i++;
+        }
+        else if (arg == "-os" && i + 1 < argc)
+        {
+            m_orbitSpeed = std::atof(argv[i+1]);
             i++;
         }
         else if (arg == "-ix" && i + 1 < argc)
