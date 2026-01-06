@@ -12,7 +12,7 @@ Screen::Screen(Settings const& settings)
 , m_background(settings.GetScreenBackground())
 , m_meshProjection(settings.GetScreenMeshProjection())
 , m_meshZPosition(settings.GetMeshPosition())
-, m_pixels(m_width * m_height, '.')
+, m_pixels(m_width * m_height, ".")
 , m_oozBuffer(m_width * m_height, 0.f)
 {
 }
@@ -50,13 +50,20 @@ void Screen::_ProjectMesh(Mesh const& mesh, Light const& light, float yOffset, f
         {
             float illumination = vertex.ComputeIllumination(light);
             m_oozBuffer[v * m_width + u] = ooz;
+
+            int r = (std::max(vertex.color[0] * illumination, 10.0f));
+            int g = (std::max(vertex.color[1] * illumination, 10.0f));
+            int b = (std::max(vertex.color[2] * illumination, 10.0f));
+
+            m_pixels[v * m_width + u] = "\x1b[38;2;" + std::to_string(r) + ";"  + std::to_string(g) + ";" + std::to_string(b) + "m";
+
             if(illumination >= 0.f)
             {
-                m_pixels[v * m_width + u] = ".,-~:;=!X#$@"[(int)(illumination*12)];
+                m_pixels[v * m_width + u] += ".,-~:;=!X#$@"[(int)(illumination*12)];
             }
             else
             {
-                m_pixels[v * m_width + u] = '.';
+                m_pixels[v * m_width + u] += '.';
             }
         }
     }

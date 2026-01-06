@@ -26,6 +26,6 @@ class Screen
     char m_background;
     char m_meshProjection;
     float m_meshZPosition;
-    std::vector<char> m_pixels;
+    std::vector<std::string> m_pixels;
     std::vector<float> m_oozBuffer;
 };
