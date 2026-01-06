@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdio>
 #include <vector>
+#include <string>
 
 class Settings;
 class Light;
@@ -24,6 +25,7 @@ struct Vertex
     float nx;
     float ny;
     float nz;
+    std::string color;
 };
 
 class Mesh

@@ -12,7 +12,7 @@ Screen::Screen(Settings const& settings)
 , m_background(settings.GetScreenBackground())
 , m_meshProjection(settings.GetScreenMeshProjection())
 , m_meshZPosition(settings.GetMeshPosition())
-, m_pixels(m_width * m_height, '.')
+, m_pixels(m_width * m_height, ".")
 , m_oozBuffer(m_width * m_height, 0.f)
 {
 }
@@ -52,11 +52,13 @@ void Screen::_ProjectMesh(Mesh const& mesh, Light const& light, float yOffset, f
             m_oozBuffer[v * m_width + u] = ooz;
             if(illumination >= 0.f)
             {
-                m_pixels[v * m_width + u] = ".,-~:;=!X#$@"[(int)(illumination*12)];
+                m_pixels[v * m_width + u] = vertex.color;
+                m_pixels[v * m_width + u] += ".,-~:;=!X#$@"[(int)(illumination*12)];
             }
             else
             {
-                m_pixels[v * m_width + u] = '.';
+                m_pixels[v * m_width + u] = vertex.color;
+                m_pixels[v * m_width + u] += '.';
             }
         }
     }

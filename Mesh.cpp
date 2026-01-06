@@ -1,6 +1,7 @@
 #define _USE_MATH_DEFINES
 
 #include <cmath>
+#include <iostream>
 #include "Mesh.h"
 #include "Settings.h"
 #include "Light.h"
@@ -94,6 +95,7 @@ void Mesh::GenerateTorus(float majorRadius, float minorRadius)
         float angleY = (2 * M_PI * i) / (m_resolution - 1);
         for(int j = 0; j < m_resolution; j++)
         {
+
             float angleZ = (2 * M_PI * j) / (m_resolution - 1);
             m_vertices[m_resolution * i + j].x = majorRadius + minorRadius * std::cos(angleZ);
             m_vertices[m_resolution * i + j].y = minorRadius * std::sin(angleZ);
@@ -102,6 +104,16 @@ void Mesh::GenerateTorus(float majorRadius, float minorRadius)
             m_vertices[m_resolution * i + j].ny = std::sin(angleZ);
             m_vertices[m_resolution * i + j].nz = 0.f;
             m_vertices[m_resolution * i + j].Rotate(angleY, Axis::Y);
+
+            if (angleZ > M_PI)
+            {
+                m_vertices[m_resolution * i + j].color = "\x1b[38;5;206m";
+            }
+            else
+            {
+                m_vertices[m_resolution * i + j].color = "\x1b[38;5;136m";
+            }
+
         }
     }
 }
