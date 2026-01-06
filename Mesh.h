@@ -25,7 +25,7 @@ struct Vertex
     float nx;
     float ny;
     float nz;
-    std::string color;
+    float color[3];
 };
 
 class Mesh

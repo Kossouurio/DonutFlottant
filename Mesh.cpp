@@ -107,11 +107,15 @@ void Mesh::GenerateTorus(float majorRadius, float minorRadius)
 
             if (angleZ > M_PI)
             {
-                m_vertices[m_resolution * i + j].color = "\x1b[38;5;206m";
+                m_vertices[m_resolution * i + j].color[0] = 255.f;
+                m_vertices[m_resolution * i + j].color[1] = 0.f;
+                m_vertices[m_resolution * i + j].color[2] = 212.f;
             }
             else
             {
-                m_vertices[m_resolution * i + j].color = "\x1b[38;5;136m";
+                m_vertices[m_resolution * i + j].color[0] = 173.f;
+                m_vertices[m_resolution * i + j].color[1] = 100.f;
+                m_vertices[m_resolution * i + j].color[2] = 0.f;
             }
 
         }

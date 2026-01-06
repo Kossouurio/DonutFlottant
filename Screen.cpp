@@ -50,14 +50,19 @@ void Screen::_ProjectMesh(Mesh const& mesh, Light const& light, float yOffset, f
         {
             float illumination = vertex.ComputeIllumination(light);
             m_oozBuffer[v * m_width + u] = ooz;
+
+            int r = (std::max(vertex.color[0] * illumination, 10.0f));
+            int g = (std::max(vertex.color[1] * illumination, 10.0f));
+            int b = (std::max(vertex.color[2] * illumination, 10.0f));
+
+            m_pixels[v * m_width + u] = "\x1b[38;2;" + std::to_string(r) + ";"  + std::to_string(g) + ";" + std::to_string(b) + "m";
+
             if(illumination >= 0.f)
             {
-                m_pixels[v * m_width + u] = vertex.color;
                 m_pixels[v * m_width + u] += ".,-~:;=!X#$@"[(int)(illumination*12)];
             }
             else
             {
-                m_pixels[v * m_width + u] = vertex.color;
                 m_pixels[v * m_width + u] += '.';
             }
         }
